@@ -238,7 +238,7 @@ st.divider()
 
 st.markdown('<div class="section-header">② Master CSV Matching &nbsp;<span style="color:#4a5a6a;font-size:0.75rem;font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></div>', unsafe_allow_html=True)
 
-include_csv    = st.toggle("🔗 Master CSV se MATCHING tab banana hai?", value=False)
+include_csv    = st.toggle("🔗 Master CSV se MATCHING tab requirement Yes or no?", value=False)
 csv_file       = None
 csv_col_manual = None
 
