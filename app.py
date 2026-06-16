@@ -18,55 +18,189 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-# CUSTOM CSS
+# DARK THEME CSS
 # ─────────────────────────────────────────────
 
 st.markdown("""
 <style>
-    .main { max-width: 780px; }
-    .stButton > button {
-        background-color: #1F4E79;
-        color: white;
-        font-weight: bold;
-        border-radius: 6px;
-        padding: 0.5rem 2rem;
-        border: none;
-        width: 100%;
-        font-size: 1rem;
+    /* ── Base dark background ── */
+    .stApp {
+        background: #0f1117 !important;
     }
-    .stButton > button:hover { background-color: #2E75B6; }
+    section[data-testid="stSidebar"] {
+        background: #1a1d27 !important;
+    }
 
+    /* ── All text light ── */
+    html, body, [class*="css"], .stMarkdown, p, label, span {
+        color: #e0e6f0 !important;
+    }
+
+    /* ── File uploader ── */
+    [data-testid="stFileUploader"] {
+        background: #1a1d27 !important;
+        border: 1.5px dashed #2e75b6 !important;
+        border-radius: 10px !important;
+        padding: 10px !important;
+    }
+    [data-testid="stFileUploader"] * { color: #a0b4cc !important; }
+
+    /* ── Divider ── */
+    hr { border-color: #2a2d3a !important; }
+
+    /* ── Generate button ── */
+    .stButton > button {
+        background: linear-gradient(135deg, #1a3a5c, #2e75b6) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 2rem !important;
+        border: none !important;
+        font-size: 1rem !important;
+        letter-spacing: 0.3px !important;
+        box-shadow: 0 4px 15px rgba(46,117,182,0.35) !important;
+        transition: all 0.2s ease !important;
+    }
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #2e75b6, #41a0e0) !important;
+        box-shadow: 0 6px 20px rgba(46,117,182,0.5) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* ── Download button ── */
+    [data-testid="stDownloadButton"] > button {
+        background: linear-gradient(135deg, #1a5c3a, #27a361) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 2rem !important;
+        border: none !important;
+        font-size: 1rem !important;
+        box-shadow: 0 4px 15px rgba(39,163,97,0.35) !important;
+        transition: all 0.2s ease !important;
+    }
+    [data-testid="stDownloadButton"] > button:hover {
+        background: linear-gradient(135deg, #27a361, #2ecc71) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* ── Toggle ── */
+    [data-testid="stToggle"] span { color: #a0b4cc !important; }
+
+    /* ── Metric cards ── */
     .metric-card {
-        background: #f8f9fa;
-        border-radius: 10px;
+        background: #1a1d27;
+        border-radius: 12px;
         padding: 16px 20px;
         margin: 6px 0;
-        border-left: 5px solid #1F4E79;
+        border-left: 4px solid #2e75b6;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    .metric-card.green  { border-left-color: #375623; background: #e2efda; }
-    .metric-card.red    { border-left-color: #9C0006; background: #ffc7ce; }
-    .metric-card.yellow { border-left-color: #7d6608; background: #fff2cc; }
+    .metric-card.green  { border-left-color: #27a361; background: #0d1f15; }
+    .metric-card.red    { border-left-color: #e05c6a; background: #1f0d10; }
+    .metric-card.yellow { border-left-color: #f0b429; background: #1f1a0d; }
+    .metric-card.blue   { border-left-color: #2e75b6; background: #0d1520; }
 
+    .metric-label { font-size: 0.75rem; color: #7a8a9a !important; letter-spacing: 0.5px; text-transform: uppercase; }
+    .metric-value { font-size: 1.4rem; font-weight: 800; margin-top: 2px; }
+    .metric-value.green  { color: #27a361 !important; }
+    .metric-value.red    { color: #e05c6a !important; }
+    .metric-value.yellow { color: #f0b429 !important; }
+    .metric-value.blue   { color: #4da3e8 !important; }
+    .metric-value.white  { color: #e0e6f0 !important; }
+
+    /* ── Badge ── */
     .badge {
         display: inline-block;
-        padding: 3px 10px;
-        border-radius: 12px;
-        font-size: 0.82rem;
-        font-weight: 600;
-    }
-    .badge-green  { background: #C6EFCE; color: #375623; }
-    .badge-red    { background: #FFC7CE; color: #9C0006; }
-    .badge-yellow { background: #FFF2CC; color: #7d6608; }
-
-    .section-header {
-        font-size: 1.1rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
         font-weight: 700;
-        color: #1F4E79;
-        margin: 1.4rem 0 0.5rem 0;
-        border-bottom: 2px solid #DEEAF1;
-        padding-bottom: 4px;
+        letter-spacing: 0.3px;
     }
+    .badge-green  { background: #0d3320; color: #27a361; border: 1px solid #27a361; }
+    .badge-red    { background: #3a0d12; color: #e05c6a; border: 1px solid #e05c6a; }
+
+    /* ── Section headers ── */
+    .section-header {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #4da3e8 !important;
+        margin: 1.6rem 0 0.6rem 0;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-bottom: 1px solid #1e2a3a;
+        padding-bottom: 6px;
+    }
+
+    /* ── App header box ── */
+    .app-header {
+        background: linear-gradient(135deg, #0d1a2e, #112240);
+        border-radius: 14px;
+        padding: 24px 28px;
+        margin-bottom: 8px;
+        border: 1px solid #1e3a5c;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .app-title {
+        font-size: 1.7rem;
+        font-weight: 800;
+        color: #e0e6f0 !important;
+        margin: 0;
+        letter-spacing: -0.3px;
+    }
+    .app-subtitle {
+        font-size: 0.9rem;
+        color: #6a8aaa !important;
+        margin-top: 4px;
+    }
+
+    /* ── Success / error / info boxes ── */
+    [data-testid="stAlert"] {
+        border-radius: 8px !important;
+        border: none !important;
+    }
+
+    /* ── Streamlit metric widget ── */
+    [data-testid="metric-container"] {
+        background: #1a1d27 !important;
+        border-radius: 10px !important;
+        padding: 12px 16px !important;
+        border: 1px solid #2a2d3a !important;
+    }
+    [data-testid="metric-container"] label { color: #7a8a9a !important; }
+    [data-testid="metric-container"] [data-testid="stMetricValue"] { color: #e0e6f0 !important; }
+
+    /* ── Selectbox ── */
+    [data-testid="stSelectbox"] > div > div {
+        background: #1a1d27 !important;
+        border-color: #2e75b6 !important;
+        color: #e0e6f0 !important;
+        border-radius: 8px !important;
+    }
+
+    /* ── Spinner ── */
+    .stSpinner { color: #4da3e8 !important; }
+
+    /* ── Code / caption ── */
+    code { background: #1e2535 !important; color: #4da3e8 !important; border-radius: 4px; padding: 1px 5px; }
+    .stCaption { color: #4a5a6a !important; }
+
+    /* ── Sheets tag row ── */
+    .sheet-tag {
+        display: inline-block;
+        background: #1a2535;
+        border: 1px solid #2e3a50;
+        color: #4da3e8 !important;
+        border-radius: 6px;
+        padding: 3px 10px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin: 2px 3px;
+    }
+
     footer { visibility: hidden; }
+    #MainMenu { visibility: hidden; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -74,25 +208,27 @@ st.markdown("""
 # HEADER
 # ─────────────────────────────────────────────
 
-st.markdown("## 📊 Outstanding Report Generator")
-st.markdown(
-    "<p style='color:#555;margin-top:-10px;'>Tally Ledger Excel → Party-wise & Project-wise Outstanding Report</p>",
-    unsafe_allow_html=True,
-)
-st.divider()
+st.markdown("""
+<div class="app-header">
+  <div class="app-title">📊 Outstanding Report Generator</div>
+  <div class="app-subtitle">Tally Ledger Excel → Party-wise &amp; Project-wise Outstanding Report &nbsp;|&nbsp; Innovatiview India</div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("")
 
 # ─────────────────────────────────────────────
 # STEP 1 — TALLY FILE
 # ─────────────────────────────────────────────
 
-st.markdown('<div class="section-header">① Tally Ledger File Upload</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-header">① Tally Ledger File</div>', unsafe_allow_html=True)
 tally_file = st.file_uploader(
     "Tally Excel file (.xlsx) upload karo",
     type=["xlsx"],
     key="tally_upload",
 )
 if tally_file:
-    st.success(f"✅ File loaded: **{tally_file.name}** ({tally_file.size // 1024} KB)")
+    st.success(f"✅ **{tally_file.name}** loaded ({tally_file.size // 1024} KB)")
 
 st.divider()
 
@@ -100,10 +236,9 @@ st.divider()
 # STEP 2 — MASTER CSV (OPTIONAL TOGGLE)
 # ─────────────────────────────────────────────
 
-st.markdown('<div class="section-header">② Master CSV Matching  <span style="color:#888;font-size:0.85rem;font-weight:400;">(Optional)</span></div>', unsafe_allow_html=True)
+st.markdown('<div class="section-header">② Master CSV Matching &nbsp;<span style="color:#4a5a6a;font-size:0.75rem;font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></div>', unsafe_allow_html=True)
 
-include_csv = st.toggle("🔗 Master CSV se MATCHING tab banana hai?", value=False)
-
+include_csv    = st.toggle("🔗 Master CSV se MATCHING tab banana hai?", value=False)
 csv_file       = None
 csv_col_manual = None
 
@@ -114,23 +249,20 @@ if include_csv:
         key="csv_upload",
     )
     if csv_file:
-        st.success(f"✅ CSV loaded: **{csv_file.name}** ({csv_file.size // 1024} KB)")
-
-        # Column preview
+        st.success(f"✅ **{csv_file.name}** loaded ({csv_file.size // 1024} KB)")
         try:
             csv_bytes  = csv_file.read(); csv_file.seek(0)
             _, _, _, fieldnames = parse_master_csv(csv_bytes)
-            st.info(f"📋 Available columns: `{'` | `'.join(fieldnames)}`")
+            st.info(f"📋 Columns: `{'` | `'.join(fieldnames)}`")
 
-            # Auto-detect attempt
             from core import find_column, PROJECT_CODE_CANDIDATES
             auto_col = find_column(fieldnames, PROJECT_CODE_CANDIDATES)
             if auto_col:
-                st.markdown(f"**Project Code column auto-detected:** `{auto_col}` ✅")
+                st.markdown(f"**Project Code column detected:** `{auto_col}` ✅")
             else:
-                st.warning("⚠️ 'Project Code' column auto-detect nahi hua. Manually select karo:")
+                st.warning("⚠️ Project Code column auto-detect nahi hua — manually select karo:")
                 csv_col_manual = st.selectbox(
-                    "Project Code column select karo:",
+                    "Project Code column:",
                     options=fieldnames,
                     key="csv_col_select",
                 )
@@ -149,7 +281,6 @@ if generate_clicked:
     if not tally_file:
         st.error("❌ Pehle Tally Excel file upload karo!")
         st.stop()
-
     if include_csv and not csv_file:
         st.error("❌ CSV toggle ON hai lekin file upload nahi ki!")
         st.stop()
@@ -158,25 +289,22 @@ if generate_clicked:
         tally_bytes = tally_file.read()
         csv_bytes   = None
         csv_fname   = None
-
         if include_csv and csv_file:
             csv_bytes = csv_file.read()
             csv_fname = csv_file.name
 
         excel_bytes, summary, match_counts, error = generate_report(
-            tally_bytes    = tally_bytes,
-            tally_filename = tally_file.name,
-            csv_bytes      = csv_bytes,
-            csv_filename   = csv_fname,
-            csv_project_col= csv_col_manual,
+            tally_bytes     = tally_bytes,
+            tally_filename  = tally_file.name,
+            csv_bytes       = csv_bytes,
+            csv_filename    = csv_fname,
+            csv_project_col = csv_col_manual,
         )
 
-    # ── CSV Column Error → let user pick column ──
     if error and error.startswith("CSV_COL_ERROR"):
         st.error("⚠️ " + error.split("|", 1)[1])
         st.info("Upar CSV section me manually column select karo, phir dobara Generate karo.")
         st.stop()
-
     if error:
         st.error(f"❌ Error: {error}")
         st.stop()
@@ -185,96 +313,98 @@ if generate_clicked:
     # RESULTS
     # ─────────────────────────────────────────────
 
-    st.success("✅ Report ready!")
     st.markdown('<div class="section-header">📈 Summary</div>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(f"""
-        <div class="metric-card">
-          <div style="font-size:0.8rem;color:#555;">Opening Balance</div>
-          <div style="font-size:1.3rem;font-weight:700;">₹{summary['opening']:,.2f}</div>
+        <div class="metric-card blue">
+          <div class="metric-label">Opening Balance</div>
+          <div class="metric-value white">₹{summary['opening']:,.2f}</div>
         </div>
         <div class="metric-card green">
-          <div style="font-size:0.8rem;color:#375623;">Total Invoiced</div>
-          <div style="font-size:1.3rem;font-weight:700;color:#375623;">₹{summary['total_invoiced']:,.2f}</div>
+          <div class="metric-label">Total Invoiced</div>
+          <div class="metric-value green">₹{summary['total_invoiced']:,.2f}</div>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div class="metric-card green">
-          <div style="font-size:0.8rem;color:#375623;">Total Paid</div>
-          <div style="font-size:1.3rem;font-weight:700;color:#375623;">₹{summary['total_paid']:,.2f}</div>
+          <div class="metric-label">Total Paid</div>
+          <div class="metric-value green">₹{summary['total_paid']:,.2f}</div>
         </div>
         <div class="metric-card yellow">
-          <div style="font-size:0.8rem;color:#7d6608;">TDS Deducted</div>
-          <div style="font-size:1.3rem;font-weight:700;color:#7d6608;">₹{summary['total_tds']:,.2f}</div>
+          <div class="metric-label">TDS Deducted</div>
+          <div class="metric-value yellow">₹{summary['total_tds']:,.2f}</div>
         </div>
         """, unsafe_allow_html=True)
 
     outstanding = summary['outstanding']
     if outstanding <= 0:
+        card_cls   = "green"
         badge_cls  = "badge-green"
         badge_text = "✅ CLEAR"
-        card_cls   = "green"
+        val_cls    = "green"
         msg        = "Party ka koi outstanding nahi hai"
     else:
+        card_cls   = "red"
         badge_cls  = "badge-red"
         badge_text = "⚠️ OUTSTANDING"
-        card_cls   = "red"
-        msg        = f"₹{outstanding:,.2f} receivable from party"
+        val_cls    = "red"
+        msg        = f"Receivable from party"
 
     st.markdown(f"""
-    <div class="metric-card {card_cls}" style="margin-top:10px;">
+    <div class="metric-card {card_cls}" style="margin-top:12px;padding:20px 24px;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
-          <div style="font-size:0.8rem;color:#555;">NET OUTSTANDING</div>
-          <div style="font-size:1.6rem;font-weight:800;">₹{outstanding:,.2f}</div>
-          <div style="font-size:0.85rem;margin-top:2px;">{msg}</div>
+          <div class="metric-label">Net Outstanding</div>
+          <div class="metric-value {val_cls}" style="font-size:1.8rem;">₹{outstanding:,.2f}</div>
+          <div style="font-size:0.82rem;color:#6a7a8a;margin-top:3px;">{msg}</div>
         </div>
         <span class="badge {badge_cls}">{badge_text}</span>
       </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Match counts (if CSV used)
+    # Match counts
     if match_counts:
-        st.markdown('<div class="section-header">🔗 MATCHING Summary</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">🔗 Matching Summary</div>', unsafe_allow_html=True)
         m1, m2, m3, m4 = st.columns(4)
-        m1.metric("✅ Matched",       match_counts.get('matched', 0))
-        m2.metric("⚠️ Mismatch",      match_counts.get('mismatch', 0))
-        m3.metric("❌ Not in CSV",     match_counts.get('not_csv', 0))
-        m4.metric("❌ Not in Tally",   match_counts.get('not_tally', 0))
+        m1.metric("✅ Matched",     match_counts.get('matched', 0))
+        m2.metric("⚠️ Mismatch",    match_counts.get('mismatch', 0))
+        m3.metric("❌ Not in CSV",   match_counts.get('not_csv', 0))
+        m4.metric("❌ Not in Tally", match_counts.get('not_tally', 0))
 
-    # ── SHEETS INFO ──
+    # Sheets info
     sheets = ["SUMMARY", "LEDGER", "INVOICE vs PAYMENT", "PROJECT WISE"]
     if include_csv and csv_file:
         sheets.append("MATCHING")
+    tags = "".join(f'<span class="sheet-tag">{s}</span>' for s in sheets)
     st.markdown(
-        f"**Sheets in report:** " + "  •  ".join(f"`{s}`" for s in sheets),
-        unsafe_allow_html=False,
+        f'<div style="margin:10px 0 4px 0;font-size:0.8rem;color:#4a5a6a;">Sheets in report:</div>{tags}',
+        unsafe_allow_html=True,
     )
 
-    # ── DOWNLOAD ──
     st.divider()
+
     out_name = f"Outstanding_{tally_file.name.rsplit('.',1)[0]}_{datetime.now().strftime('%d%b%Y')}.xlsx"
     st.download_button(
-        label     = "⬇️ Download Excel Report",
-        data      = excel_bytes,
-        file_name = out_name,
-        mime      = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        label               = "⬇️  Download Excel Report",
+        data                = excel_bytes,
+        file_name           = out_name,
+        mime                = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         use_container_width = True,
     )
-    st.caption(f"File: {out_name}")
+    st.caption(f"📄 {out_name}")
 
 # ─────────────────────────────────────────────
 # FOOTER
 # ─────────────────────────────────────────────
 
-st.divider()
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown(
-    "<p style='text-align:center;color:#aaa;font-size:0.8rem;'>"
-    "Innovatiview India &nbsp;|&nbsp; Outstanding Report Generator v4"
+    "<p style='text-align:center;color:#2a3a4a;font-size:0.78rem;'>"
+    "Innovatiview India &nbsp;·&nbsp; Outstanding Report Generator v4"
     "</p>",
     unsafe_allow_html=True,
 )
