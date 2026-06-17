@@ -60,7 +60,7 @@ def parse_tally(file_bytes):
                 'Cost_Category': cost_cat,
                 'Txn_Type': 'PAYMENT' if 'Payment' in str(vch_type)
                              else 'INVOICE' if 'Purchase' in str(vch_type)
-                             else 'TDS'     if 'Tds' in str(particulars)
+                             else 'TDS' if 'tds' in str(particulars).lower()
                              else 'JOURNAL',
             })
         i += 1
