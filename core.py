@@ -58,10 +58,10 @@ def parse_tally(file_bytes):
                 'Debit'        : float(debit)      if debit       else 0.0,
                 'Credit'       : float(credit)     if credit      else 0.0,
                 'Cost_Category': cost_cat,
-                'Txn_Type'     : 'PAYMENT' if vch_type == 'Payment New'
-                                 else 'INVOICE' if vch_type == 'Purchase'
-                                 else 'TDS'     if 'Tds' in str(particulars)
-                                 else 'JOURNAL',
+                'Txn_Type': 'PAYMENT' if 'Payment' in str(vch_type)
+                             else 'INVOICE' if 'Purchase' in str(vch_type)
+                             else 'TDS'     if 'Tds' in str(particulars)
+                             else 'JOURNAL',
             })
         i += 1
 
